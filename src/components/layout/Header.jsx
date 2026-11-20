@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   ArrowUpRight,
+  ChevronDown,
   Menu,
   X,
   Sprout,
@@ -11,7 +12,10 @@ import { navigation } from "../../data/navLinks";
 
 const Header = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null); // desktop dropdown (label)
+  const [mobileDropdown, setMobileDropdown] = useState(null); // mobile accordion (label)
   const { pathname: activePath } = useLocation();
+  const navRef = useRef(null);
 
   // Prevent background scrolling when mobile menu is open
   useEffect(() => {
@@ -22,6 +26,24 @@ const Header = () => {
     };
   }, [isMobileOpen]);
 
+  // Close dropdowns whenever the route changes
+  useEffect(() => {
+    setOpenDropdown(null);
+    setMobileDropdown(null);
+  }, [activePath]);
+
+  // Close the desktop dropdown when clicking outside the nav
+  useEffect(() => {
+    const handleOutside = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpenDropdown(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutside);
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, []);
+
   const closeMenu = () => {
     setIsMobileOpen(false);
   };
@@ -30,6 +52,10 @@ const Header = () => {
     if (href === "/") return activePath === "/";
     return activePath === href || activePath.startsWith(`${href}/`);
   };
+
+  // A parent item (with children) is active when any child is active
+  const isParentActive = (item) =>
+    item.children?.some((child) => isActive(child.href)) ?? false;
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white">
@@ -93,31 +119,111 @@ const Header = () => {
 
           {/* DESKTOP NAVIGATION */}
           <nav
+            ref={navRef}
             className="hidden xl:flex h-full flex-1 items-center justify-end gap-4 2xl:gap-5"
             aria-label="Main navigation"
           >
-            {navigation.map((item) => (
-              <Link
-                key={item.label}
-                to={item.href}
-                className={`group relative flex h-full shrink-0 items-center whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.015em] transition-colors duration-300 2xl:text-sm ${
-                  isActive(item.href)
-                    ? "text-lime-400"
-                    : "text-primary hover:text-lime-400"
-                }`}
-              >
-                {item.label}
+            {navigation.map((item) => {
+              /* ---------- Item with dropdown ---------- */
+              if (item.children) {
+                const isOpen = openDropdown === item.label;
+                const highlighted = isParentActive(item) || isOpen;
 
-                {/* Active / Hover Underline */}
-                <span
-                  className={`absolute bottom-0 left-0 h-0.75 bg-lime-400 transition-all duration-300 ${
+                return (
+                  <div
+                    key={item.label}
+                    className="relative flex h-full shrink-0 items-center"
+                    onMouseEnter={() => setOpenDropdown(item.label)}
+                    onMouseLeave={() => setOpenDropdown(null)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape") setOpenDropdown(null);
+                    }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setOpenDropdown((prev) =>
+                          prev === item.label ? null : item.label
+                        )
+                      }
+                      aria-haspopup="true"
+                      aria-expanded={isOpen}
+                      className={`group relative flex h-full shrink-0 items-center gap-1 whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.015em] transition-colors duration-300 2xl:text-sm ${
+                        highlighted
+                          ? "text-lime-400"
+                          : "text-primary hover:text-lime-400"
+                      }`}
+                    >
+                      {item.label}
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-300 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                      />
+
+                      {/* Active / Hover Underline */}
+                      <span
+                        className={`absolute bottom-0 left-0 h-0.75 bg-lime-400 transition-all duration-300 ${
+                          highlighted ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                      />
+                    </button>
+
+                    {/* Dropdown panel */}
+                    <div
+                      className={`absolute left-0 top-full z-50 w-56 border-t-2 border-lime-400 bg-white shadow-xl transition-all duration-200 ${
+                        isOpen
+                          ? "visible translate-y-0 opacity-100"
+                          : "invisible translate-y-2 opacity-0"
+                      }`}
+                    >
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.label}
+                          to={child.href}
+                          className={`group/item flex items-center justify-between border-b border-green-50 px-5 py-3.5 text-[13px] font-semibold uppercase tracking-[0.015em] transition-all duration-200 last:border-b-0 hover:bg-green-50 hover:pl-6 ${
+                            isActive(child.href)
+                              ? "text-lime-500"
+                              : "text-primary hover:text-lime-500"
+                          }`}
+                        >
+                          {child.label}
+                          <ArrowUpRight
+                            size={15}
+                            className="-translate-x-2 opacity-0 transition-all duration-200 group-hover/item:translate-x-0 group-hover/item:opacity-100"
+                          />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
+              /* ---------- Normal item ---------- */
+              return (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={`group relative flex h-full shrink-0 items-center whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.015em] transition-colors duration-300 2xl:text-sm ${
                     isActive(item.href)
-                      ? "w-full"
-                      : "w-0 group-hover:w-full"
+                      ? "text-lime-400"
+                      : "text-primary hover:text-lime-400"
                   }`}
-                />
-              </Link>
-            ))}
+                >
+                  {item.label}
+
+                  {/* Active / Hover Underline */}
+                  <span
+                    className={`absolute bottom-0 left-0 h-0.75 bg-lime-400 transition-all duration-300 ${
+                      isActive(item.href)
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
 
             {/* DESKTOP CTA */}
             <Link
@@ -193,24 +299,85 @@ const Header = () => {
           aria-label="Mobile navigation links"
           inert={!isMobileOpen}
         >
-          {navigation.map((item) => (
-            <Link
-              key={item.label}
-              to={item.href}
-              onClick={closeMenu}
-              className={`group flex min-h-13.75 items-center justify-between border-b border-[#EAEFE9] text-[15px] font-medium transition-colors duration-200 ${
-                isActive(item.href)
-                  ? "text-primary"
-                  : "text-[#26372D] hover:text-primary"
-              }`}
-            >
-              {item.label}
+          {navigation.map((item) => {
+            /* ---------- Accordion item ---------- */
+            if (item.children) {
+              const isOpen = mobileDropdown === item.label;
+              const parentActive = isParentActive(item);
 
-              {isActive(item.href) && (
-                <span className="h-5 w-0.75 bg-secondary" />
-              )}
-            </Link>
-          ))}
+              return (
+                <div key={item.label} className="border-b border-[#EAEFE9]">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setMobileDropdown((prev) =>
+                        prev === item.label ? null : item.label
+                      )
+                    }
+                    aria-expanded={isOpen}
+                    className={`flex min-h-13.75 w-full items-center justify-between text-[15px] font-medium transition-colors duration-200 ${
+                      parentActive || isOpen
+                        ? "text-primary"
+                        : "text-[#26372D] hover:text-primary"
+                    }`}
+                  >
+                    {item.label}
+
+                    <span className="flex items-center gap-3">
+                      {parentActive && (
+                        <span className="h-5 w-0.75 bg-secondary" />
+                      )}
+                      <ChevronDown
+                        size={18}
+                        className={`transition-transform duration-300 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </span>
+                  </button>
+
+                  {isOpen && (
+                    <div className="animate-fade-up pb-2 pl-4 motion-reduce:animate-none">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.label}
+                          to={child.href}
+                          onClick={closeMenu}
+                          className={`flex min-h-12 items-center justify-between border-l-2 pl-4 text-[14px] font-medium transition-colors duration-200 ${
+                            isActive(child.href)
+                              ? "border-secondary text-primary"
+                              : "border-[#EAEFE9] text-[#26372D] hover:border-lime-400 hover:text-primary"
+                          }`}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            /* ---------- Normal item ---------- */
+            return (
+              <Link
+                key={item.label}
+                to={item.href}
+                onClick={closeMenu}
+                className={`group flex min-h-13.75 items-center justify-between border-b border-[#EAEFE9] text-[15px] font-medium transition-colors duration-200 ${
+                  isActive(item.href)
+                    ? "text-primary"
+                    : "text-[#26372D] hover:text-primary"
+                }`}
+              >
+                {item.label}
+
+                {isActive(item.href) && (
+                  <span className="h-5 w-0.75 bg-secondary" />
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* DRAWER CTA */}

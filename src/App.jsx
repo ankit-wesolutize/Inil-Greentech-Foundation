@@ -21,6 +21,8 @@ import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import GetInvolved from './pages/GetInvolved';
 import ProjectDetails from './components/common/ProjectDetails';
+import Partner from './pages/Partner';
+import StoriesDetails from './components/features/Stories/StoriesDetails';
 
 
 
@@ -50,12 +52,16 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/approach" element={<OurApproach />} />
             <Route path="/initiatives" element={<Initiatives />} />
-            
             <Route path="/impact" element={<Impact />} />
+            
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:id" element={<ProjectDetails />} />
+
             <Route path="/stories" element={<Stories />} />
+            <Route path="/stories/:id" element={<StoriesDetails />} />
+
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/partners" element={<Partner />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/get-involved" element={<GetInvolved />} />
           </Route>

@@ -1,4 +1,4 @@
-import { BookOpen, Microscope, Sprout, Users,  } from "lucide-react";
+import { BookOpen, Microscope, Sprout, Users,  Handshake, ShieldCheck, } from "lucide-react";
 import { FaFacebook, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import rajeevImg from "../assets/images/rajeev-kalaskar.png";
 import saurabhImg from "../assets/images/saurabh-bagdate.png";
@@ -60,5 +60,36 @@ export const team = [
       { label: "Instagram", icon: FaInstagram, href: "#" },
       { label: "X", icon: FaXTwitter, href: "#" },
     ],
+  },
+];
+
+
+
+
+
+export const guides = [
+  {
+    number: "01",
+    title: "Community first",
+    description: "Editable value description for review and approval by INIL.",
+    icon: Users,
+  },
+  {
+    number: "02",
+    title: "Environmental care",
+    description: "Editable value description for review and approval by INIL.",
+    icon: Sprout,
+  },
+  {
+    number: "03",
+    title: "Integrity & openness",
+    description: "Editable value description for review and approval by INIL.",
+    icon: ShieldCheck,
+  },
+  {
+    number: "04",
+    title: "Shared ownership",
+    description: "Editable value description for review and approval by INIL.",
+    icon: Handshake,
   },
 ];

@@ -3,7 +3,7 @@ import { Repeat } from "lucide-react";
 import useInView from "../../../hooks/useInView";
 import { steps } from "../../../data/ApproachPageData";
 
-const titleLines = ["A connected path to", "sustainable outcomes."];
+const titleLines = ["A connected path to sustainable outcomes."];
 
 
 
@@ -59,14 +59,14 @@ const Section2 = () => {
         {/* ================= HEADER ================= */}
         <div className="mx-auto max-w-3xl text-center">
           <div
-            className={`mb-6 flex items-center justify-center gap-3 ${fadeUp}`}
+            className={`mb-3 flex items-center justify-center gap-3 ${fadeUp}`}
             style={{ animationDelay: "0.1s" }}
           >
             <span className="h-0.5 w-10 bg-secondary" />
             <span className="font-manrope text-xs font-bold uppercase tracking-widest text-white/80">
               Development Model
             </span>
-            <span className="h-0.5 w-10 bg-secondary" />
+            {/* <span className="h-0.5 w-10 bg-secondary" /> */}
           </div>
 
           <h2 className="font-dmserif-display text-4xl leading-tight text-white">
@@ -217,20 +217,20 @@ const Section2 = () => {
           >
             <div
               key={current.number}
-              className="animate-fade-up rounded-2xl border border-white/15 bg-white/10 p-8 text-center shadow-2xl backdrop-blur-md motion-reduce:animate-none"
+              className="animate-fade-up rounded-xl border border-white/15 bg-white/10 p-6 text-center shadow-xl backdrop-blur-md motion-reduce:animate-none"
             >
               <p className="font-manrope text-xs font-bold uppercase tracking-widest text-secondary">
                 Step {current.number}
               </p>
-              <h3 className="mt-3 font-display text-3xl text-white">
+              <h3 className="mt-3 font-manrope text-3xl text-white font-medium">
                 {current.title}
               </h3>
-              <p className="mt-3 font-manrope text-base leading-7 text-white/80">
+              <p className="mt-3 font-manrope text-sm leading-[1.8] tracking-wide text-white/80">
                 {current.description}
               </p>
 
               {/* Progress dots */}
-              <div className="mt-6 flex items-center justify-center gap-2">
+              <div className="mt-4 flex items-center justify-center gap-2">
                 {steps.map((step, index) => (
                   <button
                     key={step.number}

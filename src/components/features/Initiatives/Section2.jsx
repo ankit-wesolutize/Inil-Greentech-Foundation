@@ -174,7 +174,7 @@ const Section2 = () => {
                   }`}
                 >
                   {tab.label}
-                  <span
+                  {/* <span
                     className={`rounded-full px-2 py-0.5 text-xs transition-colors duration-300 ${
                       isActive
                         ? "bg-secondary text-primary"
@@ -182,7 +182,7 @@ const Section2 = () => {
                     }`}
                   >
                     {countFor(tab.id)}
-                  </span>
+                  </span> */}
                 </button>
               );
             })}
@@ -245,7 +245,7 @@ const Section2 = () => {
                   <Link
                     key={`${activeTab}-${item.slug}`}
                     to={`/initiatives/${item.slug}`}
-                    className={`group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-transparent hover:shadow-2xl ${fadeUp}`}
+                    className={`group relative flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-transparent hover:shadow-xl ${fadeUp}`}
                     style={{ animationDelay: `${0.1 + index * 0.1}s` }}
                   >
                     {/* Image */}
@@ -262,7 +262,7 @@ const Section2 = () => {
                         {item.categories.map((c) => (
                           <span
                             key={c}
-                            className="rounded-md px-3 py-1 font-manrope text-[10px] font-bold uppercase tracking-wider text-white bg-primary backdrop-blur-md"
+                            className="rounded-xs px-2 py-1 font-manrope text-[10px] font-bold uppercase tracking-wider text-white bg-primary backdrop-blur-md"
                           >
                             {categoryLabels[c]}
                           </span>
@@ -276,31 +276,31 @@ const Section2 = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="relative flex flex-1 flex-col px-8 pb-8">
+                    <div className="relative flex flex-1 flex-col px-5 pb-6">
                       {/* Icon chip overlapping the image + number */}
-                      <div className="-mt-7 flex items-end justify-between">
+                      <div className="-mt-7 ">
                         <span className="flex size-14 items-center justify-center rounded-xl bg-primary text-white shadow-lg transition-all duration-500 group-hover:rotate-6 group-hover:bg-secondary group-hover:text-primary">
                           <Icon size={24} strokeWidth={1.6} />
                         </span>
-                        <span className="font-display text-lg text-secondary">
+                        {/* <span className="font-display text-lg text-secondary">
                           {item.number}
-                        </span>
+                        </span> */}
                       </div>
 
-                      <p className="mt-6 font-manrope text-xs font-bold uppercase tracking-widest text-blue-700">
+                      <p className="mt-4 font-manrope text-[11px] font-semibold uppercase tracking-widest text-blue-700">
                         Programme Area
                       </p>
 
-                      <h3 className="mt-3 font-display text-2xl leading-snug text-slate-900 transition-colors duration-300 group-hover:text-primary">
+                      <h3 className="mt-3 font-manrope text-xl font-medium text-slate-900 transition-colors duration-300 group-hover:text-primary">
                         {item.title}
                       </h3>
 
-                      <p className="mt-3 font-manrope text-sm leading-7 text-slate-600">
+                      <p className="mt-3 font-manrope text-sm leading-[1.8] tracking-wide text-slate-600">
                         {item.description}
                       </p>
 
                       {/* Footer */}
-                      <div className="mt-auto border-t border-slate-100 pt-6">
+                      <div className="mt-auto pt-3">
                         <span className="relative inline-flex items-center gap-2 pb-2 font-manrope text-xs font-bold uppercase tracking-wider text-primary transition-colors duration-300 group-hover:text-secondary">
                           View Details
                           <ArrowUpRight

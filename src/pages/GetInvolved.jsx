@@ -1,8 +1,13 @@
 import React from 'react'
+import Section1 from '../components/features/GetInvolved/Section1'
+import Section2 from '../components/features/GetInvolved/Section2'
 
 const GetInvolved = () => {
   return (
-    <div>GetInvolved</div>
+    <>
+      <Section1 />
+      <Section2 />
+    </>
   )
 }
 

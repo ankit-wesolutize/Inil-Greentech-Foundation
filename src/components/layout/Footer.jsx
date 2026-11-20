@@ -13,10 +13,10 @@ const exploreLinks = [
 ];
 
 const focusAreas = [
-  { label: "Research & Development", href: "/initiatives" },
-  { label: "Smart Agriculture", href: "/initiatives" },
-  { label: "Water Management", href: "/initiatives" },
-  { label: "Circular Economy", href: "/initiatives" },
+  { label: "Stories", href: "/stories" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Partners", href: "/partners" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const legalLinks = [
@@ -135,7 +135,7 @@ const Footer = () => {
 
           {/* Column 3: Focus Areas */}
           <div>
-            <h3 className={headingClass}>Focus Areas</h3>
+            <h3 className={headingClass}>Quick Links</h3>
             <ul className="space-y-3 text-sm">
               {focusAreas.map((item) => (
                 <li key={item.label}>

@@ -91,7 +91,7 @@ const Section8 = () => {
                 >
                     {/* Primary: orange, dark fill sweeps in from the left */}
                     <Link
-                        to="/projects"
+                        to="/get-involved"
                         className="group relative flex items-center gap-3 overflow-hidden bg-secondary px-6 py-4 font-manrope text-xs font-bold uppercase tracking-wider text-primary shadow-lg transition-all duration-300 hover:-translate-y-1 hover:text-white hover:shadow-2xl"
                     >
                         <span className="absolute inset-0 origin-left scale-x-0 bg-primary transition-transform duration-500 ease-out group-hover:scale-x-100" />
@@ -104,7 +104,7 @@ const Section8 = () => {
 
                     {/* Secondary: outline, white fill sweeps in from the left */}
                     <Link
-                        to="/get-involved"
+                        to="/contact"
                         className="group relative flex items-center gap-3 overflow-hidden border border-white/60 px-6 py-4 font-manrope text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:-translate-y-1 hover:border-white hover:text-primary hover:shadow-2xl"
                     >
                         <span className="absolute inset-0 origin-left scale-x-0 bg-white transition-transform duration-500 ease-out group-hover:scale-x-100" />

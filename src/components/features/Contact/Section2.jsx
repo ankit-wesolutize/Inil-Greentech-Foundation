@@ -36,7 +36,7 @@ const contactCards = [
     subtitle: "Our form Address",
     value: "132, Tic St, Kingston, NY, USA",
     href: null,
-    icon: null,
+    icon: MapPin,
     image:
       "https://agrezen.zozothemes.com/wp-content/uploads/elementor/thumbs/shows-rqhn2bz0ihth31jkeglea33ovzx2y2kxnvuzq9dyt0.webp",
   },
@@ -57,7 +57,7 @@ const fields = [
 ];
 
 const inputClass =
-  "w-full rounded-lg border border-primary/30 bg-white/60 px-4 py-2 font-manrope text-[15px] text-slate-800 placeholder:text-slate-500 transition-all duration-300 hover:border-primary focus:border-secondary focus:bg-white focus:outline-none focus:ring-4 focus:ring-secondary/20";
+  "w-full rounded-xs border border-primary/30 bg-white/60 px-4 py-2 font-manrope text-sm text-slate-800 placeholder:text-slate-500 transition-all duration-300 hover:border-primary focus:border-secondary focus:bg-white focus:outline-none focus:ring-4 focus:ring-secondary/20";
 
 const Section2 = () => {
   const [ref, inView] = useInView(0.1);
@@ -115,7 +115,7 @@ const Section2 = () => {
             return (
               <div
                 key={card.title}
-                className={`group rounded-3xl bg-cream px-8 py-10 text-center transition-all duration-500 hover:-translate-y-2 hover:bg-white hover:shadow-xl ${fadeUp}`}
+                className={`group rounded-xl bg-cream px-6 py-4 text-center transition-all duration-500 hover:-translate-y-2 hover:bg-white hover:shadow-lg ${fadeUp}`}
                 style={{ animationDelay: `${0.1 + index * 0.15}s` }}
               >
                 {/* Image badge */}
@@ -128,18 +128,18 @@ const Section2 = () => {
                   />
                 </div>
 
-                <h3 className="mt-4 font-manrope text-3xl font-semibold text-slate-900">
+                <h3 className="mt-2.5 font-manrope text-2xl font-semibold text-slate-900">
                   {card.title}
                 </h3>
-                <p className="mt-3 font-manrope text-slate-700">
+                <p className="mt-0.5 font-manrope text-sm text-slate-700">
                   {card.subtitle}
                 </p>
 
                 <Value
                   {...(card.href ? { href: card.href } : {})}
-                  className="mt-3 inline-flex items-center gap-2 font-manrope text-lg text-lime-700/70 transition-colors duration-300 group-hover:text-secondary"
+                  className="mt-0.5 inline-flex items-center gap-2 font-semibold font-manrope text-base text-lime-500 transition-colors duration-300"
                 >
-                  {Icon && <Icon size={18} className="text-lime-500" />}
+                  {Icon && <Icon size={20} className="text-lime-500" />}
                   {card.value}
                 </Value>
               </div>
@@ -149,12 +149,12 @@ const Section2 = () => {
 
         {/* ================= FORM + MAP ================= */}
         <div
-          className={`mx-auto mt-16 grid overflow-hidden rounded-xl bg-amber-50 shadow-lg lg:grid-cols-2 ${fadeUp}`}
+          className={`mx-auto mt-16 grid overflow-hidden rounded-md bg-amber-50 shadow-lg lg:grid-cols-2 ${fadeUp}`}
           style={{ animationDelay: "0.6s" }}
         >
           {/* ----- Left: heading + form ----- */}
           <div className="p-8">
-            <div className="mb-5 flex items-center gap-3">
+            <div className="mb-3 flex items-center gap-3">
               <span className="h-0.5 w-10 bg-secondary" />
               <span className="font-manrope text-xs font-bold uppercase tracking-widest text-primary">
                 Start a Conversation
@@ -192,7 +192,7 @@ const Section2 = () => {
             </p> */}
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="mt-10">
+            <form onSubmit={handleSubmit} className="mt-6">
               <div className="grid gap-5 sm:grid-cols-2">
                 {fields.map((field, index) => (
                   <div
@@ -277,11 +277,11 @@ const Section2 = () => {
               loading="lazy"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
-              className="absolute inset-0 size-full grayscale transition-all duration-700 group-hover:grayscale-0"
+              className="absolute inset-0 size-full transition-all duration-700 group-hover:grayscale-0"
             />
 
             {/* Floating location card */}
-            <div className="pointer-events-none absolute bottom-6 left-6 flex animate-float items-center gap-4 rounded-2xl bg-white px-5 py-4 shadow-2xl motion-reduce:animate-none">
+            {/* <div className="pointer-events-none absolute bottom-6 left-6 flex animate-float items-center gap-4 rounded-2xl bg-white px-5 py-4 shadow-2xl motion-reduce:animate-none">
               <span className="relative flex size-12 items-center justify-center rounded-full bg-secondary text-primary">
                 <span className="absolute inset-0 animate-ping rounded-full bg-secondary/50 motion-reduce:animate-none" />
                 <MapPin size={22} className="relative" />
@@ -294,7 +294,7 @@ const Section2 = () => {
                   Address awaiting verification
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

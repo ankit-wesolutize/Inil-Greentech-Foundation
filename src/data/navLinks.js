@@ -4,8 +4,14 @@ export const navigation = [
   { label: "Our Approach", href: "/approach" },
   { label: "Initiatives", href: "/initiatives" },
   { label: "Our Impact", href: "/impact" },
-  { label: "Projects", href: "/projects" },
   { label: "Stories", href: "/stories" },
-  { label: "Gallery", href: "/gallery" },
+  {
+    label: "Resources",
+    children: [
+      { label: "Projects", href: "/projects" },
+      { label: "Gallery", href: "/gallery" },
+      { label: "Partners", href: "/partners" },
+    ],
+  },
   { label: "Contact", href: "/contact" },
 ];

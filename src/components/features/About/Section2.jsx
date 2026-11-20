@@ -45,9 +45,9 @@ const Section2 = () => {
                 style={{ animationDelay: `${0.3 + index * 0.15}s` }}
               >
                 {/* Ghost number */}
-                <span className="pointer-events-none absolute -bottom-4 right-4 select-none font-display text-9xl leading-none text-slate-900/5 transition-all duration-500 group-hover:-translate-y-2 group-hover:text-secondary/20">
+                {/* <span className="pointer-events-none absolute -bottom-4 right-4 select-none font-display text-9xl leading-none text-slate-900/5 transition-all duration-500 group-hover:-translate-y-2 group-hover:text-secondary/20">
                   {item.number}
-                </span>
+                </span> */}
 
                 {/* Top accent bar */}
                 <span className="absolute left-0 top-0 h-1 w-full origin-left scale-x-0 bg-secondary transition-transform duration-500 ease-out group-hover:scale-x-100" />
